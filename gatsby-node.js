@@ -14,6 +14,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // queries against the local Gatsby GraphQL schema. Think of
   // it like the site has a built-in database constructed
   // from the fetched data that you can run queries against.
+
   const result = await graphql(`
     {
       wordpressPage(title: { eq: "Home" }) {
@@ -60,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Access query results via object destructuring
   const { allWordpressPage, allWordpressPost, wordpressPage } = result.data
-
+  console.log(result.data)
   // Create Page pages.
   const indexTemplate = path.resolve(`./src/templates/index.js`)
   // We want to create a detailed page for each page node.
@@ -72,15 +73,30 @@ exports.createPages = async ({ graphql, actions }) => {
   // Plugins and sites can use functions like "createPage"
   // to interact with Gatsby.
 
-  createPage({
+  wordpressPage.createPage({
     // Each page is required to have a `path` as well
     // as a template component. The `context` is
     // optional but is often necessary so the template
     // can query data specific to each page.
-    path: `/${wordpressPage.slug}/`,
+    path: `/${wordpressPage.path}/`,
     component: slash(indexTemplate),
     //})
   })
+
+  // allWordpressPage.edges.forEach(edge => {
+  //   // Gatsby uses Redux to manage its internal state.
+  //   // Plugins and sites can use functions like "createPage"
+  //   // to interact with Gatsby.
+  //   createPage({
+  //     // Each page is required to have a `path` as well
+  //     // as a template component. The `context` is
+  //     // optional but is often necessary so the template
+  //     // can query data specific to each page.
+  //     path: `/${edge.node.slug}/`,
+  //     component: slash(pageTemplate),
+  //     context: edge.node,
+  //   })
+  // })
 
   // Create Page pages.
   const pageTemplate = path.resolve(`./src/templates/page.js`)
