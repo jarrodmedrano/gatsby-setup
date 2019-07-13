@@ -46,7 +46,7 @@ module.exports = {
         // If useACF is true, then the source plugin will try to import the Wordpress ACF Plugin contents.
         // This feature is untested for sites hosted on wordpress.com.
         // Defaults to true.
-        useACF: false,
+        useACF: true,
         // Include specific ACF Option Pages that have a set post ID
         // Regardless if an ID is set, the default options route will still be retrieved
         // Must be using V3 of ACF to REST to include these routes
@@ -110,11 +110,12 @@ module.exports = {
           "**/tags",
           "**/taxonomies",
           "**/users",
+          "**/menus"
         ],
         // Blacklisted routes using glob patterns
         excludedRoutes: ["**/posts/1456"],
         // use a custom normalizer which is applied after the built-in ones.
-        normalizer: function({ entities }) {
+        normalizer: function ({ entities }) {
           return entities
         },
       },
