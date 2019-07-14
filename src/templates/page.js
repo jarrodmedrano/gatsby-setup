@@ -1,8 +1,10 @@
-import React, { Component } from "react"
+import React from "react"
+import Layout from "../components/layout"
 
-export default ({ pageContext }) => (
-  <div>
-    {console.log(pageContext)}
-    <h1>{pageContext.title}</h1>
-  </div>
-)
+export default ({ pageContext }) => {
+  return (
+    <Layout>
+      <h1 dangerouslySetInnerHTML={{ __html: pageContext.title }}></h1>
+    </Layout>
+  )
+}
