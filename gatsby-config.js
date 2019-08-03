@@ -5,16 +5,48 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-source-wordpress`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        // your wordpress source
-        baseUrl: `http://localhost:8888/awesomeportfolio2`,
-        protocol: `http`,
-        // is it hosted on wordpress.com, or self-hosted?
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+
+    {
+      resolve: "gatsby-source-wordpress",
+      options: {
+        baseUrl: "http://localhost:8888/myawesomeportfolio.io",
+        protocol: "http",
         hostingWPCOM: false,
-        // does your site use the Advanced Custom Fields Plugin?
         useACF: false,
+        acfOptionPageIds: [],
+        auth: {
+          // If auth.user and auth.pass are filled, then the source plugin will be allowed
+          // to access endpoints that are protected with .htaccess.
+          htaccess_user: "your-htaccess-username",
+          htaccess_pass: "your-htaccess-password",
+          htaccess_sendImmediately: false,
+
+        },
+        verboseOutput: false,
+        perPage: 100,
+        concurrentRequests: 10,
         includedRoutes: [
           "**/categories",
           "**/posts",
@@ -25,7 +57,10 @@ module.exports = {
           "**/users",
           "**/menus"
         ],
-      }
-    }
-  ]
+      },
+    },
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.dev/offline
+    // `gatsby-plugin-offline`,
+  ],
 }

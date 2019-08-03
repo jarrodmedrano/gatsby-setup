@@ -29,6 +29,11 @@ exports.createPages = async ({ graphql, actions }) => {
       allWordpressPage(filter: { title: { ne: "Home" } }) {
         edges {
           node {
+            id
+            link
+            status
+            template
+            slug
             title
             content
           }
