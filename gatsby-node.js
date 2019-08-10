@@ -39,16 +39,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allWordpressPost {
+      allWordpressWpPortfolio {
         edges {
           node {
-            id
             title
+            excerpt
             content
             slug
-            status
-            template
-            format
+            featured_media {
+              source_url
+            }
           }
         }
       }
@@ -61,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Access query results via object destructuring
-  const { wordpressPage, allWordpressPage, allWordpressPost } = result.data
+  const { wordpressPage, allWordpressPage, allWordpressPost, allWordpressWpPortfolio } = result.data
 
   // Create Page pages.
   const pageTemplate = path.resolve(`./src/templates/page.js`)
@@ -89,15 +89,15 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  const postTemplate = path.resolve(`./src/templates/post.js`)
+  const portfolioTemplate = path.resolve(`./src/templates/portfolio.js`)
   // We want to create a detailed page for each post node.
   // The path field stems from the original WordPress link
   // and we use it for the slug to preserve url structure.
   // The Post ID is prefixed with 'POST_'
-  allWordpressPost.edges.forEach(edge => {
+  allWordpressWpPortfolio.edges.forEach(edge => {
     createPage({
-      path: `/${edge.node.slug}/`,
-      component: slash(postTemplate),
+      path: `/portfolio/${edge.node.slug}/`,
+      component: slash(portfolioTemplate),
       context: edge.node,
     })
   })
