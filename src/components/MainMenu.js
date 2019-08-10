@@ -1,6 +1,22 @@
 import React from 'react';
 import { StaticQuery, Link } from 'gatsby';
-import { graphql } from 'gatsby'
+import { graphql } from 'gatsby';
+import styled from 'styled-components';
+
+import SiteInfo from './SiteInfo';
+
+const MainMenuWrapper = styled.div`
+  display: flex;
+  background-color: rgb(3,27,77);
+  color: #fff;
+`;
+
+const MenuItem = styled(Link)`
+  color: white;
+  display: block;
+  padding: 8px 16px;
+`;
+
 const MainMenu = () => (
   <StaticQuery query={graphql`
   {
@@ -21,13 +37,14 @@ const MainMenu = () => (
    } 
   }`
   } render={props => (
-    <React.Fragment>
+    <MainMenuWrapper>
+      {/* <SiteInfo /> */}
       {props.allWordpressWpApiMenusMenusItems.edges[0].node.items.map(item => (
-        <Link to={item.object_slug === 'home' ? '/' : item.object_slug} key={item.title}>
+        <MenuItem to={item.object_slug === 'home' ? '/' : item.object_slug} key={item.title}>
           {item.title}
-        </Link>
+        </MenuItem>
       ))}
-    </React.Fragment>
+    </MainMenuWrapper>
   )} />
 );
 
