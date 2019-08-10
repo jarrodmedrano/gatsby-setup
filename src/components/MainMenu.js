@@ -38,7 +38,7 @@ const MainMenu = () => (
   }`
   } render={props => (
     <MainMenuWrapper>
-      {/* <SiteInfo /> */}
+      <SiteInfo />
       {props.allWordpressWpApiMenusMenusItems.edges[0].node.items.map(item => (
         <MenuItem to={item.object_slug === 'home' ? '/' : item.object_slug} key={item.title}>
           {item.title}
