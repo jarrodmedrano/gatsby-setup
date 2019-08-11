@@ -1,20 +1,20 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const PortfolioItemWrapper = styled.div`
-  display: flex;
-`
-const PortfolioItem = styled.div`
-  width: 300px;
-  border:  1px solid #efefef;
-  padding: 16px;
-  margin: 16px;
-`
-const FeaturedImage = styled.img`
-  max-width: 300px;
-  margin: 16px 0;
-`;
+// const PortfolioItemWrapper = styled.div`
+//   display: flex;
+// `
+// const PortfolioItem = styled.div`
+//   width: 300px;
+//   border:  1px solid #efefef;
+//   padding: 16px;
+//   margin: 16px;
+// `
+// const FeaturedImage = styled.img`
+//   max-width: 300px;
+//   margin: 16px 0;
+// `;
 
 const PortfolioItems = () => {
   return (
@@ -40,8 +40,7 @@ const PortfolioItems = () => {
           props
             .allWordpressWpPortfolio
             .edges
-            .map
-            (portfolioItem =>
+            .map(portfolioItem =>
               (
                 <div key={portfolioItem.node.id}>
                   <h2>{portfolioItem.node.title}</h2>

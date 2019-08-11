@@ -7,9 +7,9 @@ const SiteInfoWrapper = styled.div`
   color: white;
 `;
 
-const SiteTitle = styled.div`
-  font-weight: bold;
-`;
+// const SiteTitle = styled.div`
+//   font-weight: bold;
+// `;
 
 const SiteInfo = () => (
   <StaticQuery query={graphql`
