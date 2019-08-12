@@ -60,8 +60,9 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             excerpt
             wordpress_id
-            date
+            date(formatString: "Do MMM YYYY HH:mm")
             title
+            slug
             content
           }
         }
@@ -132,6 +133,23 @@ exports.createPages = async ({ graphql, actions }) => {
         numberOfPages,
         currentPage: index + 1
       }
+    })
+  })
+
+  const postTemplate = path.resolve(`./src/templates/page.js`)
+
+  posts.forEach(edge => {
+    // Gatsby uses Redux to manage its internal state.
+    // Plugins and sites can use functions like "createPage"
+    // to interact with Gatsby.
+    createPage({
+      // Each page is required to have a `path` as well
+      // as a template component. The `context` is
+      // optional but is often necessary so the template
+      // can query data specific to each page.
+      path: `/post/${edge.node.slug}/`,
+      component: slash(edge.node.template === 'portfolio-items.php' ? portfolioUnderContentTemplate : pageTemplate),
+      context: edge.node,
     })
   })
 
